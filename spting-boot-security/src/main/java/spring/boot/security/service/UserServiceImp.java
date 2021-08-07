@@ -1,0 +1,79 @@
+package spring.boot.security.service;
+
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import spring.boot.security.model.Role;
+import spring.boot.security.model.User;
+import spring.boot.security.repository.UserRepository;
+
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+
+@Service
+public class UserServiceImp implements UserService, UserDetailsService {
+    public final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    public UserServiceImp(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @Override
+    public void save(String name, String email, int age, String password, String role) {
+        Set<Role> roles = new HashSet<>();
+        if (role.equals("ADMIN")){
+            roles.add(new Role(2, "ROLE_ADMIN"));
+            roles.add(new Role(1, "ROLE_USER"));
+        } else {
+            roles.add(new Role(1, "ROLE_USER"));
+        }
+        User user = new User(name, email, age, password, roles);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+    }
+    @Override
+    @SuppressWarnings("unchecked")
+    public Iterable<User> findAll() {
+        Iterable<User>users = userRepository.findAll();
+        return users;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public User showById(int id) {
+        User user = userRepository.findById(id).orElse(new User());
+        return user;
+    }
+
+    @Override
+    public void updateUser(int id, String name, String email, int age, String password, String role) {
+        Set<Role> roles = new HashSet<>();
+        if (role.equals("ADMIN")){
+            roles.add(new Role(2, "ROLE_ADMIN"));
+            roles.add(new Role(1, "ROLE_USER"));
+        } else {
+            roles.add(new Role(1, "ROLE_USER"));
+        }
+        User user = new User(name, email, age, password, roles);
+        user.setId(id);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+    }
+
+    @Override
+    public void removeUser(int id) {
+        User user = userRepository.findById(id).orElse(new User());
+        userRepository.delete(user);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return userRepository.findByEmail(email);
+    }
+}

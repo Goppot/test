@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Add new users</title>
+
+</head>
+
+<body>
+<!--<form th:method="POST" th:action="@{/admin/create-user}">-->
+<!--    <label for="name">Enter name: </label>-->
+<!--    <input type="text" name="name" id="name"/>-->
+<!--    <br/>-->
+<!--    <label for="age">Enter age: </label>-->
+<!--    <input type="text" name="age" id="age"/>-->
+<!--    <br/>-->
+<!--    <label for="email">Enter email: </label>-->
+<!--    <input type="text" name="email" id="email"/>-->
+<!--    <br/>-->
+<!--    <label for="password">Enter password: </label>-->
+<!--    <input type="text" name="password" id="password">-->
+<!--    <br/>-->
+<!--    <label for="role">Enter role: </label>-->
+<!--    <select name="role" id="role">-->
+<!--        <option>USER</option>-->
+<!--        <option>ADMIN</option>-->
+<!--    </select>-->
+<!--    <br/>-->
+<!--    <input type="submit" value="Create user">-->
+<!--</form>-->
+
+
+
+<div th:insert="blocs/header :: name-header"></div>
+
+<div class="container-fluid vh-100">
+    <div class="row">
+        <div class="col-2 vh-100" style="background-color: #ffffff">
+            <div class="row mt-5">
+
+                <input class="form-control" type="submit" value="Admin"
+                       style="background-color: #027cff; outline: none; color: white;  text-align: start">
+                <input class="form-control " type="submit" value="User"
+                       style="background-color: white; color:#027cff; outline: none; border: none; text-align: start;">
+            </div>
+        </div>
+
+        <div class="col-10 vh-100" style="background-color: #f8f9fa ">
+            <div class="row container mt-5">
+                <h3>Admin panel</h3>
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/admin">User table</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/admin/create-user">New user</a>
+                    </li>
+                </ul>
+
+
+
+
+
+                <div style="background-color: #f2f2f2; border: solid 1px #dfdfdf; border-radius: 5px 5px 0 0">
+                    <h3>Add new user</h3>
+                </div>
+                <div style="background-color: white; border: solid 1px #dfdfdf; border-radius: 0 0 5px 5px">
+                    <div class="row">
+                        <div class="col vh-100"></div>
+                        <div class="col vh-100" style="background-color: white; text-align: center; font-weight: bold" >
+                            <form th:method="POST" th:action="@{/admin/create-user}">
+                                <br>
+                                <div class="form-group">
+                                    <label for="exampleInputName1">Name</label>
+                                    <input type="text" class="form-control" name="name" id="exampleInputName1" aria-describedby="emailHelp" placeholder="Enter name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputAge1">Age</label>
+                                    <input type="number" class="form-control" name="age" id="exampleInputAge1" placeholder="Enter age">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email</label>
+                                    <input type="text" class="form-control" name="email" id="exampleInputEmail1" placeholder="Enter email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Enter password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputRole1">Role </label>
+                                    <select class="form-control" size="2" name="role" id="exampleInputRole1">
+                                        <option selected>USER</option>
+                                        <option>ADMIN</option>
+                                    </select>
+                                </div>
+                                <br/>
+                                <div class="form-group">
+                                    <input type="submit" class="form-control" value="Sign in" style="background-color: #027cff; color: white;">
+                                </div>
+                            </form><br>
+                        </div>
+                        <div class="col vh-100"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Optional JavaScript; choose one of the two! -->
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
