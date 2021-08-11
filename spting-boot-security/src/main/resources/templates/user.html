@@ -1,13 +1,149 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org>">
+<!doctype html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>User</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>All users</title>
+
+    <style>
+        input.admin {
+            background-color: #027cff;
+            color: white;
+            text-align: start;
+            border: none;
+        }
+
+        input:focus.admin {
+            background-color: #027cff;
+            box-shadow: none;
+            color: white;
+            text-align: start;
+            border: none;
+        }
+
+        input.user {
+            background-color: white;
+            outline: 0;
+            color: #027cff;
+            text-align: start;
+            border: none;
+        }
+
+        input:focus.user {
+            background-color: white;
+            box-shadow: none;
+            color: #027cff;
+            text-align: start;
+            border: none;
+        }
+
+        .table-users {
+            background-color: white;
+            border: solid 1px #dfdfdf;
+            border-radius: 0 0 5px 5px;
+        }
+
+        .left-col {
+            background-color: #f8f9fa;
+        }
+
+        .all-users {
+            background-color: #f2f2f2;
+            border: solid 1px #dfdfdf;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .edit-user {
+            background-color: #19a3b8;
+            color: white;
+        }
+
+        .delete-user {
+            background-color: #dc3646;
+            color: white;
+        }
+    </style>
+
 </head>
 <body>
-<h1>User</h1>
-<h3 th:text="${user.getId()}+' '+${user.getName()}+' '+${user.getEmail()}+' '+${user.getNameRole()}"></h3>
 
-<p><a href="/logout">Logout</a></p>
+<div th:insert="blocs/header :: name-header"></div>
+
+<!--<header>-->
+<!--    <div class="row">-->
+<!--        <div class="col" th:each="user: ${user1}" style="background: black; color: white; padding: 0.5%  2%; font-size: 20px">-->
+<!--            <span th:text="${user.getEmail()}" style="font-weight: bold;"></span>-->
+<!--            <span> with roles:</span>-->
+<!--            <span th:text="${user.getNameRole()}"></span>-->
+<!--        </div>-->
+<!--        <div class="col" style="background: black; color: white; padding: 0.5%  2%;" align="right">-->
+<!--            <a href="/logout" style="text-decoration: none; color: #bcbcbc"> Logout</a>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</header>-->
+
+<div class="container-fluid vh-100">
+    <div class="row">
+        <div class="col-2 vh-100">
+            <div class="row mt-5">
+                <input class="form-control admin" type="submit" value="User">
+            </div>
+        </div>
+        <div class="left-col col-10 vh-100">
+            <div class="row container mt-5">
+                <div style="margin: 0 0 2% 0">
+                    <h1>User information page</h1>
+                </div>
+                <div class="all-users">
+                    <h3>About user</h3>
+                </div>
+                <div class="table-users">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Age</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Role</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user: ${user}">
+                            <td th:text="${user.getId()}"></td>
+                            <td><a th:href="@{/admin/user/{id}(id=${user.getId()})}"
+                                   th:text="${user.getName()}">read</a></td>
+                            <td th:text="${user.getAge()}"></td>
+                            <td th:text="${user.getEmail()}"></td>
+                            <td th:text="${user.getNameRole()}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Optional JavaScript; choose one of the two! -->
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
 </body>
 </html>

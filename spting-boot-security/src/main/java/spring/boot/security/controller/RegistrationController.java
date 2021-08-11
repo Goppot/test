@@ -6,7 +6,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import spring.boot.security.model.Role;
 import spring.boot.security.service.UserService;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/registration")
@@ -30,17 +35,6 @@ public class RegistrationController {
                           @RequestParam String role,
                           Model model) {
         userService.save(name, email, age, password, role);
-        return "redirect:/user";
+        return "redirect:/login";
     }
-    @GetMapping("/home")
-    public String home(){
-        return "home";
-    }
-
-    @GetMapping("/test")
-    public String test(){
-        return "test";
-    }
-
-
 }

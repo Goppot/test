@@ -22,8 +22,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()//Включаем авторизацию
                     .antMatchers("/","/registration/**").permitAll()//Разрешаем полнай доступ без авторизации "/"
-                    .antMatchers("/admin/**").hasRole("ADMIN")//Доступ только для ROLE_ADMIN
-                    .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")////Доступ только для ROLE_USER, ROLE_ADMIN
+                    .antMatchers("/admin/**").permitAll()//hasRole("ADMIN")//Доступ только для ROLE_ADMIN
+                    .antMatchers("/user/**").permitAll()//hasAnyRole("USER", "ADMIN")////Доступ только для ROLE_USER, ROLE_ADMIN
                     .anyRequest().authenticated()//Для всех остальных требуем авторизацию
                 .and()
                     .formLogin()//Включаем форм логин

@@ -1,8 +1,13 @@
 <div th:fragment="name-header">
-    <div class="d-flex flex-column flex-md-row align-items-center" style="background-color: black">
-        <h3  style="color: white" class="fs-4">ADMIN</h3>
-        <nav class="d-inline-flex  ms-md-auto">
-            <a style="color: white" class="text-light text-decoration-none" href="/">Logout</a>
-        </nav>
+    <div class="row">
+        <div class="col" th:each="user: ${user1}"
+             style="background: black; color: white; padding: 0.5%  2%; font-size: 20px">
+            <span th:text="${user.getEmail()}" style="font-weight: bold;"></span>
+            <span> with roles:</span>
+            <span th:text="${user.getNameRole()}"></span>
+        </div>
+        <div class="col" style="background: black; color: white; padding: 0.5%  2%;" align="right">
+            <a href="/logout" style="text-decoration: none; color: #bcbcbc"> Logout</a>
+        </div>
     </div>
 </div>

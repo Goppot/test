@@ -3,6 +3,7 @@ package spring.boot.security.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import spring.boot.security.model.User;
 import spring.boot.security.service.UserService;
 
@@ -21,17 +22,20 @@ public class AdminController {
     public String user(Model model) {
         Iterable<User> users = userService.findAll();
         model.addAttribute("users", users);
+        model.addAttribute("user1", userService.getShowId());
         return "/all-users";
     }
 
     @GetMapping("user/{id}")
     public String getUserById(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userService.showById(id));
+        model.addAttribute("user", userService.getById(id));
+        model.addAttribute("user1", userService.getShowId());
         return "/user";
     }
 
     @GetMapping("/create-user")
-    public String addUserForm() {
+    public String addUserForm(Model model) {
+        model.addAttribute("user1", userService.getShowId());
         return "/create-user";
     }
 
@@ -48,11 +52,14 @@ public class AdminController {
 
     @GetMapping("/update-user/{id}")
     public String updateUserForm(@PathVariable("id") int id, Model model){
-        model.addAttribute("user", userService.showById(id));
-        return "/update-user";
+        Iterable<User> users = userService.findAll();
+        model.addAttribute("users", users);
+        model.addAttribute("user", userService.getById(id));
+        model.addAttribute("user1", userService.getShowId());
+        return "update-user";
     }
 
-    @PatchMapping("update-user")
+    @PostMapping("update-user")
     public String updateUser(@RequestParam int id,
                              @RequestParam String name,
                              @RequestParam int age,
@@ -63,8 +70,18 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @PostMapping("/delete-user/{id}")
-    public String deleteUser(@PathVariable("id") int id) {
+    @GetMapping("/delete-user/{id}")
+    public String deleteUserForm(@PathVariable("id") int id, Model model){
+        Iterable<User> users = userService.findAll();
+        model.addAttribute("users", users);
+        model.addAttribute("user", userService.getById(id));
+        model.addAttribute("user1", userService.getShowId());
+        return "delete-user";
+    }
+
+
+    @PostMapping("/delete-user")
+    public String deleteUser(@RequestParam int id) {
         userService.removeUser(id);
         return "redirect:/admin";
     }

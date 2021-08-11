@@ -1,17 +1,20 @@
 package spring.boot.security.service;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 import spring.boot.security.model.Role;
 import spring.boot.security.model.User;
 import spring.boot.security.repository.UserRepository;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class UserServiceImp implements UserService, UserDetailsService {
@@ -25,8 +28,8 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
     @Override
     public void save(String name, String email, int age, String password, String role) {
-        Set<Role> roles = new HashSet<>();
-        if (role.equals("ADMIN")){
+        Set<Role>roles = new HashSet<>();
+        if (role.equals("ADMIN") | role.equals("USER,ADMIN")){
             roles.add(new Role(2, "ROLE_ADMIN"));
             roles.add(new Role(1, "ROLE_USER"));
         } else {
@@ -45,8 +48,15 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
     @Override
     @SuppressWarnings("unchecked")
-    public User showById(int id) {
+    public User getById(int id) {
         User user = userRepository.findById(id).orElse(new User());
+        return user;
+    }
+
+    @Override
+    public User getShowId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
         return user;
     }
 

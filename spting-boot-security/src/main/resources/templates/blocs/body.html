@@ -1,0 +1,58 @@
+<div th:fragment="name-body">
+    <div class="container-fluid vh-100">
+        <div class="row">
+            <div class="col-2 vh-100">
+                <div class="row mt-5" >
+                    <input class="form-control admin" type="submit" value="Admin">
+                    <input class="form-control user" type="submit" value="User">
+                </div>
+            </div>
+            <div class="left-col col-10 vh-100">
+                <div class="row container mt-5">
+                    <h3>Admin panel</h3>
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">User table</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/create-user">New user</a>
+                        </li>
+                    </ul>
+                    <div class="all-users" >
+                        <h3>All users</h3>
+                    </div>
+                    <div class="table-users">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Age</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Role</th>
+                                <th scope="col">Edit</th>
+                                <th scope="col">Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="user: ${users}">
+                                <td th:text="${user.getId()}"></td>
+                                <td><a th:href="@{/admin/user/{id}(id=${user.getId()})}" th:text="${user.getName()}">read</a></td>
+                                <td th:text="${user.getAge()}"></td>
+                                <td th:text="${user.getEmail()}"></td>
+                                <td th:text="${user.getNameRole()}"></td>
+                                <form th:method="GET" th:action="@{/admin/update-user/{id}(id=${user.getId()})}">
+                                    <td><input class="form-control edit-user" type="submit" value="Edit" ></td>
+                                </form>
+                                <form th:method="GET" th:action="@{/admin/delete-user/{id}(id=${user.getId()})}">
+                                    <td><input class="form-control delete-user" type="submit" value="Delete"></td>
+                                </form>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

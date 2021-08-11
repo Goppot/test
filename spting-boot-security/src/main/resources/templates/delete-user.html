@@ -119,13 +119,12 @@
 <div th:insert="blocs/body :: name-body"></div>
 
 <div class="update">
-
     <div class="update_body">
-        <form th:method="POST" th:action="@{/admin/update-user}" th:object="${user}">
+        <form th:method="POST" th:action="@{/admin/delete-user}" th:object="${user}">
             <div style="border-bottom: 1px solid #dfdfdf">
                 <div class="row align-items-start">
                     <div class="col" style=" padding: 3%">
-                        <h4>Edit user</h4>
+                        <h4>Delete user</h4>
                     </div>
                     <div class="col">
                     </div>
@@ -134,26 +133,25 @@
                     </div>
                 </div>
             </div>
+
             <div class="update-content">
+                <!--            <form th:method="PATCH" th:action="@{/admin/update-user}" th:object="${user}">-->
                 <div class="form-group">
                     <label for="id">ID</label>
                     <input class="form-control" readonly type="number" name="id" th:field="*{id}" id="id">
 
-                    <label for="name">Enter name: </label>
-                    <input class="form-control" type="text" name="name" th:field="*{name}" id="name"/>
+                    <label for="name">Name: </label>
+                    <input class="form-control" readonly type="text" name="name" th:field="*{name}" id="name"/>
 
-                    <label for="age">Enter age: </label>
-                    <input class="form-control" type="text" name="age" th:field="*{age}" id="age"/>
+                    <label for="age">Age: </label>
+                    <input class="form-control" readonly type="text" name="age" th:field="*{age}" id="age"/>
 
-                    <label for="email">Enter email: </label>
-                    <input class="form-control" type="text" name="email" th:field="*{email}" id="email"/>
+                    <label for="email">Email: </label>
+                    <input class="form-control" readonly type="text" name="email" th:field="*{email}" id="email"/>
 
-                    <label for="password">Enter password: </label>
-                    <input class="form-control" type="text" name="password" id="password">
-
-                    <label for="role">Enter role: </label>
-                    <select class="form-control" multiple="multiple" size="2" name="role" id="role">
-                        <option selected>USER</option>
+                    <label for="role">Role: </label>
+                    <select class="form-control" disabled size="2" name="role" id="role">
+                        <option>USER</option>
                         <option>ADMIN</option>
                     </select>
                 </div>
@@ -161,7 +159,7 @@
             <br>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <a th:href="@{/admin}"><button class="btn btn-secondary me-md-2" type="button">Close</button></a>
-                <button class="btn btn-primary" type="submit">Edit</button>
+                <button class="btn btn-danger" type="submit">Delete</button>
             </div>
         </form>
     </div>
