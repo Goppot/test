@@ -30,10 +30,10 @@ public class UserServiceImp implements UserService, UserDetailsService {
     public void save(String name, String email, int age, String password, String role) {
         Set<Role>roles = new HashSet<>();
         if (role.equals("ADMIN") | role.equals("USER,ADMIN")){
-            roles.add(new Role(2, "ROLE_ADMIN"));
-            roles.add(new Role(1, "ROLE_USER"));
+            roles.add(new Role(1, "ROLE_ADMIN"));
+            roles.add(new Role(2, "ROLE_USER"));
         } else {
-            roles.add(new Role(1, "ROLE_USER"));
+            roles.add(new Role(2, "ROLE_USER"));
         }
         User user = new User(name, email, age, password, roles);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -54,7 +54,8 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
 
     @Override
-    public User getShowId() {
+    @SuppressWarnings("unchecked")
+    public User getAuthorized() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
         return user;
@@ -63,22 +64,22 @@ public class UserServiceImp implements UserService, UserDetailsService {
     @Override
     public void updateUser(int id, String name, String email, int age, String password, String role) {
         Set<Role> roles = new HashSet<>();
-        if (role.equals("ADMIN")){
-            roles.add(new Role(2, "ROLE_ADMIN"));
-            roles.add(new Role(1, "ROLE_USER"));
+        if (role.equals("ADMIN") | role.equals("USER,ADMIN")){
+            roles.add(new Role(1, "ROLE_ADMIN"));
+            roles.add(new Role(2, "ROLE_USER"));
         } else {
-            roles.add(new Role(1, "ROLE_USER"));
+            roles.add(new Role(2, "ROLE_USER"));
         }
         User user = new User(name, email, age, password, roles);
         user.setId(id);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
+
     }
 
     @Override
     public void removeUser(int id) {
-        User user = userRepository.findById(id).orElse(new User());
-        userRepository.delete(user);
+        userRepository.delete(getById(id));
     }
 
     @Override

@@ -16,7 +16,7 @@ public interface UserService {
 
     User getById(int id);
 
-    User getShowId();
+    User getAuthorized();
 
     void updateUser(int id, String name, String email, int age, String password, String role);
 

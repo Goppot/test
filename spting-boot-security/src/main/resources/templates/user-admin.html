@@ -78,6 +78,7 @@
     <div class="row">
         <div class="col-2 vh-100">
             <div class="row mt-5" >
+                <a href="/admin" class="btn admin" type="submit" value="Admin" style="text-align: left; color: #027cff">Admin</a>
                 <a class="btn btn-primary user" type="submit" value="User" style="text-align: left">User</a>
             </div>
         </div>
@@ -101,7 +102,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="user: ${user}">
+                        <tr th:each="user: ${user1}">
                             <td th:text="${user.getId()}"></td>
                             <td><a th:href="@{/admin/user/{id}(id=${user.getId()})}"
                                    th:text="${user.getName()}">read</a></td>

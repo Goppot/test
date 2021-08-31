@@ -3,7 +3,6 @@ package spring.boot.security.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import spring.boot.security.model.User;
 import spring.boot.security.service.UserService;
 
@@ -22,20 +21,25 @@ public class AdminController {
     public String user(Model model) {
         Iterable<User> users = userService.findAll();
         model.addAttribute("users", users);
-        model.addAttribute("user1", userService.getShowId());
-        return "/all-users";
+        model.addAttribute("user1", userService.getAuthorized());
+        return "all-users";
     }
 
     @GetMapping("user/{id}")
     public String getUserById(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.getById(id));
-        model.addAttribute("user1", userService.getShowId());
-        return "/user";
+        model.addAttribute("user1", userService.getAuthorized());
+        return "user-admin";
+    }
+    @GetMapping("user/authorized")
+    public String getAuthorized(Model model) {
+        model.addAttribute("user1", userService.getAuthorized());
+        return "user-admin";
     }
 
     @GetMapping("/create-user")
     public String addUserForm(Model model) {
-        model.addAttribute("user1", userService.getShowId());
+        model.addAttribute("user1", userService.getAuthorized());
         return "/create-user";
     }
 
@@ -55,7 +59,7 @@ public class AdminController {
         Iterable<User> users = userService.findAll();
         model.addAttribute("users", users);
         model.addAttribute("user", userService.getById(id));
-        model.addAttribute("user1", userService.getShowId());
+        model.addAttribute("user1", userService.getAuthorized());
         return "update-user";
     }
 
@@ -75,7 +79,7 @@ public class AdminController {
         Iterable<User> users = userService.findAll();
         model.addAttribute("users", users);
         model.addAttribute("user", userService.getById(id));
-        model.addAttribute("user1", userService.getShowId());
+        model.addAttribute("user1", userService.getAuthorized());
         return "delete-user";
     }
 

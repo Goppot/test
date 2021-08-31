@@ -7,10 +7,16 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import spring.boot.security.service.UserServiceImp;
+
+import java.util.function.Function;
 
 @Configuration
 @EnableWebSecurity
@@ -22,8 +28,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()//Включаем авторизацию
                     .antMatchers("/","/registration/**").permitAll()//Разрешаем полнай доступ без авторизации "/"
-                    .antMatchers("/admin/**").permitAll()//hasRole("ADMIN")//Доступ только для ROLE_ADMIN
-                    .antMatchers("/user/**").permitAll()//hasAnyRole("USER", "ADMIN")////Доступ только для ROLE_USER, ROLE_ADMIN
+                    .antMatchers("/admin/**").hasRole("ADMIN")//Доступ только для ROLE_ADMIN
+                    .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")////Доступ только для ROLE_USER, ROLE_ADMIN
                     .anyRequest().authenticated()//Для всех остальных требуем авторизацию
                 .and()
                     .formLogin()//Включаем форм логин
@@ -31,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .successHandler(new SuccessUserHandler())
                     .permitAll()//Разрешаем полнай доступ без авторизации "/login"
                 .and()
-                    .logout()//Включае логаут
+                    .logout()//Включает логаут
                     .permitAll()//Разрешаем полнай доступ без авторизации "логаут"
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                     .logoutSuccessUrl("/");
