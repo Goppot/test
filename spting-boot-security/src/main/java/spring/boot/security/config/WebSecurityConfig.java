@@ -1,6 +1,5 @@
 package spring.boot.security.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,8 +14,12 @@ import spring.boot.security.service.UserServiceImp;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private UserServiceImp userServiceImp;
+
+    private final UserServiceImp userServiceImp;
+
+    public WebSecurityConfig(UserServiceImp userServiceImp) {
+        this.userServiceImp = userServiceImp;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

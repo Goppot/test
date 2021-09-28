@@ -2,7 +2,6 @@ package spring.boot.security.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import java.util.*;
 import java.util.stream.Collectors;

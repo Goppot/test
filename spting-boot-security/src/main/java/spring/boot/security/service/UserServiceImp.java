@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import spring.boot.security.model.Role;
 import spring.boot.security.model.User;
 import spring.boot.security.repository.UserRepository;
+
 import java.util.*;
 
 @Service
@@ -24,8 +25,8 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
     @Override
     public void save(String name, String email, int age, String password, String role) {
-        Set<Role>roles = new HashSet<>();
-        if (role.equals("ADMIN") | role.equals("USER,ADMIN")){
+        Set<Role> roles = new HashSet<>();
+        if (role.equals("ADMIN") | role.equals("USER,ADMIN")) {
             roles.add(new Role(1, "ROLE_ADMIN"));
             roles.add(new Role(2, "ROLE_USER"));
         } else {
@@ -35,10 +36,11 @@ public class UserServiceImp implements UserService, UserDetailsService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
+
     @Override
     @SuppressWarnings("unchecked")
     public List<User> findAll() {
-        List<User>users = (List<User>) userRepository.findAll();
+        List<User> users = (List<User>) userRepository.findAll();
         return users;
     }
 
@@ -60,7 +62,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
     @Override
     public void updateUser(int id, String name, String email, int age, String password, String role) {
         Set<Role> roles = new HashSet<>();
-        if (role.equals("ADMIN") | role.equals("USER,ADMIN")){
+        if (role.equals("ADMIN") | role.equals("USER,ADMIN")) {
             roles.add(new Role(1, "ROLE_ADMIN"));
             roles.add(new Role(2, "ROLE_USER"));
         } else {
@@ -70,7 +72,6 @@ public class UserServiceImp implements UserService, UserDetailsService {
         user.setId(id);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-
     }
 
     @Override
