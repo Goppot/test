@@ -52,7 +52,6 @@ public class User implements UserDetails {
         this.name = name;
     }
 
-
     public String getEmail() {
         return email;
     }
@@ -116,7 +115,7 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    public String getNameRole(){
+    public String getNameRole() {
         ArrayList<Role> roles = new ArrayList<>(getRoles());
         String role = roles.stream().map(Role::getName).map(t -> t.toString().replace("ROLE_", "")).collect(Collectors.joining(" "));
         return role;

@@ -12,8 +12,5 @@ public class MvcConfig implements WebMvcConfigurer {
         //Создание контроллера без класса @Controllers
         registry.addViewController("/").setViewName("login");
         registry.addViewController("/login").setViewName("login");
-
-
     }
-
 }

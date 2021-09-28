@@ -16,7 +16,6 @@ public class AdminController {
         this.userService = userService;
     }
 
-
     @GetMapping()
     public String user(Model model) {
         Iterable<User> users = userService.findAll();
@@ -31,6 +30,7 @@ public class AdminController {
         model.addAttribute("user1", userService.getAuthorized());
         return "user-admin";
     }
+
     @GetMapping("user/authorized")
     public String getAuthorized(Model model) {
         model.addAttribute("user1", userService.getAuthorized());
@@ -48,14 +48,13 @@ public class AdminController {
                           @RequestParam int age,
                           @RequestParam String email,
                           @RequestParam String password,
-                          @RequestParam String role,
-                          Model model) {
+                          @RequestParam String role) {
         userService.save(name, email, age, password, role);
         return "redirect:/admin";
     }
 
     @GetMapping("/update-user/{id}")
-    public String updateUserForm(@PathVariable("id") int id, Model model){
+    public String updateUserForm(@PathVariable("id") int id, Model model) {
         Iterable<User> users = userService.findAll();
         model.addAttribute("users", users);
         model.addAttribute("user", userService.getById(id));
@@ -63,7 +62,7 @@ public class AdminController {
         return "update-user";
     }
 
-    @PostMapping("update-user")
+    @PutMapping("update-user")
     public String updateUser(@RequestParam int id,
                              @RequestParam String name,
                              @RequestParam int age,
@@ -75,7 +74,7 @@ public class AdminController {
     }
 
     @GetMapping("/delete-user/{id}")
-    public String deleteUserForm(@PathVariable("id") int id, Model model){
+    public String deleteUserForm(@PathVariable("id") int id, Model model) {
         Iterable<User> users = userService.findAll();
         model.addAttribute("users", users);
         model.addAttribute("user", userService.getById(id));
@@ -83,18 +82,9 @@ public class AdminController {
         return "delete-user";
     }
 
-
-    @PostMapping("/delete-user")
-    public String deleteUser(@RequestParam int id) {
+    @DeleteMapping("/delete-user/{id}")
+    public String deleteUser(@PathVariable("id") int id) {
         userService.removeUser(id);
         return "redirect:/admin";
     }
-
-
-
-
-
-
-
-
 }

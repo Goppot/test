@@ -7,14 +7,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.ModelAndView;
 import spring.boot.security.model.Role;
 import spring.boot.security.model.User;
 import spring.boot.security.repository.UserRepository;
-
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class UserServiceImp implements UserService, UserDetailsService {
@@ -41,8 +37,8 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
     @Override
     @SuppressWarnings("unchecked")
-    public Iterable<User> findAll() {
-        Iterable<User>users = userRepository.findAll();
+    public List<User> findAll() {
+        List<User>users = (List<User>) userRepository.findAll();
         return users;
     }
 

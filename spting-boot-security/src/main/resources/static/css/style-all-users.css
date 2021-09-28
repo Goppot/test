@@ -1,0 +1,50 @@
+
+input.admin{
+    background-color: #027cff;
+    color: white;
+    text-align: start;
+    border: none;
+}
+input:focus.admin{
+    background-color: #027cff;
+    box-shadow: none;
+    color: white;
+    text-align: start;
+    border: none;
+}
+input.user{
+    background-color: white;
+    outline: 0;
+    color: #027cff;
+    text-align: start;
+    border: none;
+}
+input:focus.user{
+    background-color: white;
+    box-shadow: none;
+    color: #027cff;
+    text-align: start;
+    border: none;
+}
+.table-users{
+    background-color: white;
+    border: solid 1px #dfdfdf;
+    border-radius: 0 0 5px 5px;
+    overflow-x: auto;
+}
+.left-col{
+    background-color: #f8f9fa;
+}
+.all-users{
+    background-color: #f2f2f2;
+    border: solid 1px #dfdfdf;
+    border-radius: 5px 5px 0 0;
+}
+.edit-user{
+    background-color: #19a3b8;
+    color: white;
+}
+.delete-user{
+    background-color: #dc3646;
+    color: white;
+}
